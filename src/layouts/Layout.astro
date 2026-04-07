@@ -27,13 +27,38 @@ const { title, description } = Astro.props;
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 
     <title>{title}</title>
+
+    <!-- Theme init: runs before paint to prevent flash -->
+    <script is:inline>
+      (function() {
+        const saved = localStorage.getItem('theme');
+        if (saved === 'light' || (!saved && window.matchMedia('(prefers-color-scheme: light)').matches)) {
+          document.documentElement.classList.add('light');
+        }
+      })();
+    </script>
   </head>
   <body>
     <div class="stars-dense"></div>
     <div class="stars-twinkle"></div>
+
+    <!-- Theme toggle button -->
+    <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">
+      <span class="toggle-icon dark-icon">☀️</span>
+      <span class="toggle-icon light-icon">🌙</span>
+    </button>
+
     <div class="content-wrapper">
       <slot />
     </div>
+
+    <script is:inline>
+      document.getElementById('themeToggle').addEventListener('click', function() {
+        document.documentElement.classList.toggle('light');
+        const isLight = document.documentElement.classList.contains('light');
+        localStorage.setItem('theme', isLight ? 'light' : 'dark');
+      });
+    </script>
   </body>
 </html>
 
@@ -44,11 +69,43 @@ const { title, description } = Astro.props;
     box-sizing: border-box;
   }
 
+  /* ===== Dark mode (default) ===== */
+  :root {
+    --text: #fff;
+    --text-sub: rgba(255, 255, 255, 0.5);
+    --text-muted: rgba(255, 255, 255, 0.35);
+    --text-faint: rgba(255, 255, 255, 0.25);
+    --card-bg: rgba(255, 255, 255, 0.06);
+    --card-border: rgba(255, 255, 255, 0.1);
+    --card-hover-bg: rgba(255, 255, 255, 0.1);
+    --card-hover-border: rgba(255, 255, 255, 0.2);
+    --tag-bg: rgba(255, 255, 255, 0.06);
+    --tag-text: rgba(255, 255, 255, 0.4);
+    --tag-border: rgba(255, 255, 255, 0.06);
+    --divider: rgba(255, 255, 255, 0.06);
+  }
+
+  /* ===== Light mode ===== */
+  html.light {
+    --text: #1a2233;
+    --text-sub: rgba(26, 34, 51, 0.6);
+    --text-muted: rgba(26, 34, 51, 0.4);
+    --text-faint: rgba(26, 34, 51, 0.3);
+    --card-bg: rgba(255, 255, 255, 0.7);
+    --card-border: rgba(255, 255, 255, 0.8);
+    --card-hover-bg: rgba(255, 255, 255, 0.9);
+    --card-hover-border: rgba(255, 255, 255, 1);
+    --tag-bg: rgba(0, 0, 0, 0.05);
+    --tag-text: rgba(26, 34, 51, 0.55);
+    --tag-border: rgba(0, 0, 0, 0.08);
+    --divider: rgba(0, 0, 0, 0.06);
+  }
+
   body {
     min-height: 100vh;
     background: linear-gradient(180deg, #0a0a1a 0%, #0d1117 40%, #111827 100%);
     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-    color: #fff;
+    color: var(--text);
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -56,6 +113,11 @@ const { title, description } = Astro.props;
     padding: 2rem 1rem;
     position: relative;
     overflow: hidden;
+    transition: background 0.5s ease, color 0.3s ease;
+  }
+
+  html.light body {
+    background: linear-gradient(180deg, #e0f0ff 0%, #c8e6ff 40%, #a8d4ff 100%);
   }
 
   /* Stars - dense layer */
@@ -66,6 +128,8 @@ const { title, description } = Astro.props;
     width: 100%;
     height: 100%;
     pointer-events: none;
+    opacity: 1;
+    transition: opacity 0.5s ease;
     background-image:
       radial-gradient(2px 2px at 10% 8%, #fff, transparent),
       radial-gradient(2.5px 2.5px at 25% 18%, #fff, transparent),
@@ -147,6 +211,8 @@ const { title, description } = Astro.props;
     width: 100%;
     height: 100%;
     pointer-events: none;
+    opacity: 1;
+    transition: opacity 0.5s ease;
     background-image:
       radial-gradient(3px 3px at 15% 10%, #fff, transparent),
       radial-gradient(2.5px 2.5px at 40% 25%, #fff, transparent),
@@ -164,15 +230,75 @@ const { title, description } = Astro.props;
     z-index: 0;
   }
 
-  .stars-dense,
-  .stars-twinkle {
-    inset: 0;
-  }
-
   @keyframes twinkle {
     0% { opacity: 0.2; }
     50% { opacity: 0.8; }
     100% { opacity: 1; }
+  }
+
+  /* In light mode, hide stars */
+  html.light .stars-dense,
+  html.light .stars-twinkle {
+    opacity: 0 !important;
+    animation: none;
+  }
+
+  /* Light mode clouds (subtle) */
+  html.light body::before {
+    content: "";
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 0;
+    background-image:
+      radial-gradient(ellipse 300px 80px at 15% 20%, rgba(255,255,255,0.6), transparent),
+      radial-gradient(ellipse 250px 60px at 70% 15%, rgba(255,255,255,0.5), transparent),
+      radial-gradient(ellipse 200px 50px at 85% 35%, rgba(255,255,255,0.4), transparent),
+      radial-gradient(ellipse 350px 70px at 40% 70%, rgba(255,255,255,0.3), transparent);
+  }
+
+  /* Theme toggle button */
+  .theme-toggle {
+    position: fixed;
+    top: 1.25rem;
+    right: 1.25rem;
+    z-index: 100;
+    width: 44px;
+    height: 44px;
+    border: 1px solid var(--card-border);
+    border-radius: 12px;
+    background: var(--card-bg);
+    backdrop-filter: blur(12px);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.25s ease;
+    font-size: 1.2rem;
+    padding: 0;
+  }
+
+  .theme-toggle:hover {
+    background: var(--card-hover-bg);
+    border-color: var(--card-hover-border);
+    transform: scale(1.05);
+  }
+
+  /* Show/hide icons based on theme */
+  .dark-icon {
+    display: inline;
+  }
+  .light-icon {
+    display: none;
+  }
+  html.light .dark-icon {
+    display: none;
+  }
+  html.light .light-icon {
+    display: inline;
   }
 
   a {

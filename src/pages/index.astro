@@ -115,7 +115,8 @@ const projects = [
     justify-content: center;
     font-size: 2rem;
     font-weight: 800;
-    color: #fff;
+    color: #fff !important;
+    -webkit-text-fill-color: #fff !important;
     margin-bottom: 0.5rem;
     box-shadow: 0 8px 32px rgba(102, 126, 234, 0.4);
   }
@@ -134,7 +135,7 @@ const projects = [
   }
 
   .subtitle {
-    color: rgba(255, 255, 255, 0.5);
+    color: var(--text-sub);
     font-size: 0.95rem;
   }
 
@@ -147,8 +148,8 @@ const projects = [
   }
 
   .card-wrapper {
-    background: rgba(255, 255, 255, 0.06);
-    border: 1px solid rgba(255, 255, 255, 0.1);
+    background: var(--card-bg);
+    border: 1px solid var(--card-border);
     border-radius: 16px;
     transition: all 0.25s ease;
     position: relative;
@@ -168,10 +169,10 @@ const projects = [
   }
 
   .card-wrapper:hover {
-    background: rgba(255, 255, 255, 0.1);
-    border-color: rgba(255, 255, 255, 0.2);
+    background: var(--card-hover-bg);
+    border-color: var(--card-hover-border);
     transform: translateY(-2px);
-    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
   }
 
   .card-wrapper:hover::before {
@@ -211,14 +212,14 @@ const projects = [
 
   .card-en {
     font-size: 0.75rem;
-    color: rgba(255, 255, 255, 0.35);
+    color: var(--text-muted);
     display: block;
     margin-bottom: 0.35rem;
   }
 
   .card-content p {
     font-size: 0.85rem;
-    color: rgba(255, 255, 255, 0.5);
+    color: var(--text-sub);
     line-height: 1.4;
   }
 
@@ -246,14 +247,14 @@ const projects = [
 
   .card-arrow {
     font-size: 1.2rem;
-    color: rgba(255, 255, 255, 0.35);
+    color: var(--text-muted);
     transition: transform 0.25s ease, color 0.25s ease;
     flex-shrink: 0;
   }
 
   .card-wrapper:hover .card-arrow {
     transform: translateX(4px);
-    color: rgba(255, 255, 255, 0.5);
+    color: var(--text-sub);
   }
 
   /* Tech Stack tags */
@@ -262,7 +263,7 @@ const projects = [
     flex-wrap: wrap;
     gap: 0.35rem;
     padding: 0 1.5rem 1rem;
-    border-top: 1px solid rgba(255, 255, 255, 0.06);
+    border-top: 1px solid var(--divider);
     padding-top: 0.7rem;
   }
 
@@ -271,15 +272,15 @@ const projects = [
     font-weight: 500;
     padding: 0.15rem 0.5rem;
     border-radius: 5px;
-    background: rgba(255, 255, 255, 0.06);
-    color: rgba(255, 255, 255, 0.4);
-    border: 1px solid rgba(255, 255, 255, 0.06);
+    background: var(--tag-bg);
+    color: var(--tag-text);
+    border: 1px solid var(--tag-border);
   }
 
   /* Footer */
   footer {
     margin-top: 1rem;
-    color: rgba(255, 255, 255, 0.25);
+    color: var(--text-faint);
     font-size: 0.8rem;
   }
 
