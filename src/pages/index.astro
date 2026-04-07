@@ -7,6 +7,7 @@ const projects = [
     nameEn: "Yongsan District Clone",
     description: "용산구청 홈페이지 클론 프로젝트",
     url: "https://yongsan.minhojan-world.site",
+    github: "https://github.com/rowlow0gold-ops/yongsan-site-exercise",
     icon: "🏛️",
     color: "#f093fb",
     status: "live",
@@ -17,6 +18,7 @@ const projects = [
     nameEn: "My IP Checker",
     description: "공인 IP 주소와 위치 정보를 빠르게 확인",
     url: "https://whats-my-ip.minhojan-world.site",
+    github: "https://github.com/rowlow0gold-ops/my-ip-checker",
     icon: "🌐",
     color: "#667eea",
     status: "live",
@@ -27,6 +29,7 @@ const projects = [
     nameEn: "Calculator Hub",
     description: "나이, 환율, BMI 등 다양한 계산기 모음",
     url: "#",
+    github: "",
     icon: "🧮",
     color: "#4facfe",
     status: "coming",
@@ -57,24 +60,33 @@ const projects = [
             target={project.status === "live" ? "_blank" : undefined}
             rel="noopener noreferrer"
           >
-            <div class="card-icon">{project.icon}</div>
-            <div class="card-content">
-              <h2>{project.name}</h2>
-              <span class="card-en">{project.nameEn}</span>
-              <p>{project.description}</p>
+            <div class="card-top">
+              <div class="card-icon">{project.icon}</div>
+              <div class="card-content">
+                <h2>{project.name}</h2>
+                <span class="card-en">{project.nameEn}</span>
+                <p>{project.description}</p>
+              </div>
+              {project.status === "coming" ? (
+                <span class="badge coming">준비중</span>
+              ) : (
+                <span class="badge live">LIVE</span>
+              )}
+              <div class="card-arrow">→</div>
             </div>
-            {project.status === "coming" ? (
-              <span class="badge coming">준비중</span>
-            ) : (
-              <span class="badge live">LIVE</span>
-            )}
-            <div class="card-arrow">→</div>
+            <div class="stack-tags">
+              {project.stack.map((tech) => (
+                <span class="stack-tag">{tech}</span>
+              ))}
+            </div>
           </a>
-          <div class="stack-tags">
-            {project.stack.map((tech) => (
-              <span class="stack-tag">{tech}</span>
-            ))}
-          </div>
+          {project.github && (
+            <a href={project.github} class="github-link" target="_blank" rel="noopener noreferrer">
+              <svg viewBox="0 0 16 16" width="14" height="14" fill="currentColor"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/></svg>
+              <span>GitHub</span>
+              <span class="github-arrow">→</span>
+            </a>
+          )}
         </div>
       ))}
     </div>
@@ -189,10 +201,14 @@ const projects = [
   }
 
   .card {
+    display: block;
+    padding: 1.25rem 1.5rem;
+  }
+
+  .card-top {
     display: flex;
     align-items: center;
     gap: 1rem;
-    padding: 1.25rem 1.5rem;
   }
 
   .card-icon {
@@ -260,14 +276,12 @@ const projects = [
     color: var(--text-sub);
   }
 
-  /* Tech Stack tags */
+  /* Tech Stack tags (inside card link) */
   .stack-tags {
     display: flex;
     flex-wrap: wrap;
     gap: 0.35rem;
-    padding: 0 1.5rem 1rem;
-    border-top: 1px solid var(--divider);
-    padding-top: 0.7rem;
+    padding-top: 0.6rem;
   }
 
   .stack-tag {
@@ -279,6 +293,31 @@ const projects = [
     color: var(--tag-text);
     border: 1px solid var(--tag-border);
     transition: background 1s ease, color 1s ease, border-color 1s ease;
+  }
+
+  /* GitHub link */
+  .github-link {
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+    padding: 0.55rem 1.5rem;
+    font-size: 0.75rem;
+    color: var(--text-muted);
+    transition: color 0.25s ease;
+  }
+
+  .github-link:hover {
+    color: var(--text-sub);
+  }
+
+  .github-arrow {
+    margin-left: auto;
+    font-size: 1rem;
+    transition: transform 0.25s ease;
+  }
+
+  .github-link:hover .github-arrow {
+    transform: translateX(4px);
   }
 
   /* Footer */
