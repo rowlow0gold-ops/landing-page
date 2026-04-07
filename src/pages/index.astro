@@ -1,0 +1,300 @@
+---
+import Layout from "../layouts/Layout.astro";
+
+const projects = [
+  {
+    name: "내 IP 확인",
+    nameEn: "My IP Checker",
+    description: "공인 IP 주소와 위치 정보를 빠르게 확인",
+    url: "https://whats-my-ip.minhojan-world.site",
+    icon: "🌐",
+    color: "#667eea",
+    status: "live",
+    stack: ["Next.js", "TypeScript", "Tailwind CSS", "Supabase", "MapLibre GL", "Vercel"],
+  },
+  {
+    name: "계산기 모음",
+    nameEn: "Calculator Hub",
+    description: "나이, 환율, BMI 등 다양한 계산기 모음",
+    url: "#",
+    icon: "🧮",
+    color: "#4facfe",
+    status: "coming",
+    stack: ["Nuxt", "TypeScript"],
+  },
+  {
+    name: "용산구청 클론",
+    nameEn: "Yongsan District Clone",
+    description: "용산구청 홈페이지 클론 프로젝트",
+    url: "https://yongsan.minhojan-world.site",
+    icon: "🏛️",
+    color: "#f093fb",
+    status: "live",
+    stack: ["Spring Boot 4", "Vue 3", "Vuetify", "PostgreSQL", "Redis", "JWT", "OAuth2", "Docker", "Nginx", "Prometheus", "Grafana", "GitHub Actions", "AWS Lightsail", "Managed Database"],
+  },
+];
+---
+
+<Layout
+  title="minhojan world"
+  description="minhojan의 웹 프로젝트 포털. IP 확인, 용산 프로젝트 등 다양한 서비스를 만나보세요."
+>
+  <div class="container">
+    <!-- Logo & Title -->
+    <header class="hero">
+      <div class="logo">M</div>
+      <h1>minhojan<span class="accent">.world</span></h1>
+      <p class="subtitle">웹 프로젝트 모음</p>
+    </header>
+
+    <!-- Project Cards -->
+    <div class="projects">
+      {projects.map((project) => (
+        <div class:list={["card-wrapper", { disabled: project.status === "coming" }]} style={`--accent: ${project.color}`}>
+          <a
+            href={project.url}
+            class="card"
+            target={project.status === "live" ? "_blank" : undefined}
+            rel="noopener noreferrer"
+          >
+            <div class="card-icon">{project.icon}</div>
+            <div class="card-content">
+              <h2>{project.name}</h2>
+              <span class="card-en">{project.nameEn}</span>
+              <p>{project.description}</p>
+            </div>
+            {project.status === "coming" ? (
+              <span class="badge coming">준비중</span>
+            ) : (
+              <span class="badge live">LIVE</span>
+            )}
+            <div class="card-arrow">→</div>
+          </a>
+          <div class="stack-tags">
+            {project.stack.map((tech) => (
+              <span class="stack-tag">{tech}</span>
+            ))}
+          </div>
+        </div>
+      ))}
+    </div>
+
+    <!-- Footer -->
+    <footer>
+      <p>&copy; 2026 minhojan world. All rights reserved.</p>
+    </footer>
+  </div>
+</Layout>
+
+<style>
+  .container {
+    max-width: 600px;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2.5rem;
+  }
+
+  /* Hero */
+  .hero {
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  .logo {
+    width: 72px;
+    height: 72px;
+    background: linear-gradient(135deg, #667eea, #764ba2);
+    border-radius: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 2rem;
+    font-weight: 800;
+    color: #fff;
+    margin-bottom: 0.5rem;
+    box-shadow: 0 8px 32px rgba(102, 126, 234, 0.4);
+  }
+
+  h1 {
+    font-size: 2rem;
+    font-weight: 700;
+    letter-spacing: -0.5px;
+  }
+
+  .accent {
+    background: linear-gradient(135deg, #667eea, #f093fb);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .subtitle {
+    color: rgba(255, 255, 255, 0.5);
+    font-size: 0.95rem;
+  }
+
+  /* Project Cards */
+  .projects {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .card-wrapper {
+    background: rgba(255, 255, 255, 0.06);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 16px;
+    transition: all 0.25s ease;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .card-wrapper::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background: var(--accent);
+    opacity: 0;
+    transition: opacity 0.25s ease;
+  }
+
+  .card-wrapper:hover {
+    background: rgba(255, 255, 255, 0.1);
+    border-color: rgba(255, 255, 255, 0.2);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+  }
+
+  .card-wrapper:hover::before {
+    opacity: 1;
+  }
+
+  .card-wrapper.disabled {
+    opacity: 0.5;
+  }
+
+  .card-wrapper.disabled .card {
+    pointer-events: none;
+  }
+
+  .card {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 1.25rem 1.5rem;
+  }
+
+  .card-icon {
+    font-size: 2rem;
+    flex-shrink: 0;
+  }
+
+  .card-content {
+    flex: 1;
+    min-width: 0;
+  }
+
+  .card-content h2 {
+    font-size: 1.05rem;
+    font-weight: 600;
+    margin-bottom: 0.15rem;
+  }
+
+  .card-en {
+    font-size: 0.75rem;
+    color: rgba(255, 255, 255, 0.35);
+    display: block;
+    margin-bottom: 0.35rem;
+  }
+
+  .card-content p {
+    font-size: 0.85rem;
+    color: rgba(255, 255, 255, 0.5);
+    line-height: 1.4;
+  }
+
+  .badge {
+    font-size: 0.65rem;
+    font-weight: 700;
+    padding: 0.2rem 0.5rem;
+    border-radius: 6px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    flex-shrink: 0;
+  }
+
+  .badge.live {
+    background: rgba(52, 211, 153, 0.2);
+    color: #34d399;
+    border: 1px solid rgba(52, 211, 153, 0.3);
+  }
+
+  .badge.coming {
+    background: rgba(251, 191, 36, 0.15);
+    color: #fbbf24;
+    border: 1px solid rgba(251, 191, 36, 0.25);
+  }
+
+  .card-arrow {
+    font-size: 1.2rem;
+    color: rgba(255, 255, 255, 0.35);
+    transition: transform 0.25s ease, color 0.25s ease;
+    flex-shrink: 0;
+  }
+
+  .card-wrapper:hover .card-arrow {
+    transform: translateX(4px);
+    color: rgba(255, 255, 255, 0.5);
+  }
+
+  /* Tech Stack tags */
+  .stack-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.35rem;
+    padding: 0 1.5rem 1rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.06);
+    padding-top: 0.7rem;
+  }
+
+  .stack-tag {
+    font-size: 0.6rem;
+    font-weight: 500;
+    padding: 0.15rem 0.5rem;
+    border-radius: 5px;
+    background: rgba(255, 255, 255, 0.06);
+    color: rgba(255, 255, 255, 0.4);
+    border: 1px solid rgba(255, 255, 255, 0.06);
+  }
+
+  /* Footer */
+  footer {
+    margin-top: 1rem;
+    color: rgba(255, 255, 255, 0.25);
+    font-size: 0.8rem;
+  }
+
+  /* Mobile */
+  @media (max-width: 480px) {
+    h1 {
+      font-size: 1.6rem;
+    }
+
+    .card {
+      padding: 1rem 1.25rem;
+    }
+
+    .card-icon {
+      font-size: 1.6rem;
+    }
+  }
+</style>
