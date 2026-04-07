@@ -62,10 +62,10 @@ const { title, description } = Astro.props;
       // Log visitor to Supabase
       (function() {
         var SUPABASE_URL = 'https://xxzveiasemaspdonppgf.supabase.co';
-        var SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Inh4enZlaWFzZW1hc3Bkb25wcGdmIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDI1MzE5NDcsImV4cCI6MjA1ODEwNzk0N30.4_MxlPMmVkYMKEHEnMmJfHjiYMkMUwVQ_F2gMEn8mOc';
+        var SUPABASE_KEY = 'sb_publishable_EMv1OEZ9LUtFJ1krDPjzPw_p-pmbJrB';
         if (sessionStorage.getItem('visited')) return;
         sessionStorage.setItem('visited', '1');
-        fetch('https://ipwho.is/')
+        fetch('https://ipapi.co/json/')
           .then(function(r) { return r.json(); })
           .then(function(geo) {
             fetch(SUPABASE_URL + '/rest/v1/visits', {
@@ -77,10 +77,10 @@ const { title, description } = Astro.props;
               },
               body: JSON.stringify({
                 ip: geo.ip,
-                country: geo.country,
+                country: geo.country_name,
                 region: geo.region,
                 city: geo.city,
-                isp: geo.connection ? geo.connection.isp : '',
+                isp: geo.org || '',
                 page: 'landing',
               }),
             });
