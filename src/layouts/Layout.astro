@@ -118,11 +118,22 @@ const { title, description } = Astro.props;
     position: relative;
     overflow-x: hidden;
     overflow-y: visible;
-    transition: background 0.5s ease, color 0.3s ease;
   }
 
-  html.light body {
+  /* Light sky overlay — fades in smoothly */
+  body::after {
+    content: "";
+    position: fixed;
+    inset: 0;
     background: linear-gradient(180deg, #e0f0ff 0%, #c8e6ff 40%, #a8d4ff 100%);
+    opacity: 0;
+    transition: opacity 1s ease;
+    z-index: -1;
+    pointer-events: none;
+  }
+
+  html.light body::after {
+    opacity: 1;
   }
 
   /* Stars - dense layer */
@@ -134,7 +145,7 @@ const { title, description } = Astro.props;
     height: 100%;
     pointer-events: none;
     opacity: 1;
-    transition: opacity 0.5s ease;
+    transition: opacity 1s ease;
     background-image:
       radial-gradient(2px 2px at 10% 8%, #fff, transparent),
       radial-gradient(2.5px 2.5px at 25% 18%, #fff, transparent),
@@ -217,7 +228,7 @@ const { title, description } = Astro.props;
     height: 100%;
     pointer-events: none;
     opacity: 1;
-    transition: opacity 0.5s ease;
+    transition: opacity 1s ease;
     background-image:
       radial-gradient(3px 3px at 15% 10%, #fff, transparent),
       radial-gradient(2.5px 2.5px at 40% 25%, #fff, transparent),
@@ -309,6 +320,11 @@ const { title, description } = Astro.props;
   a {
     text-decoration: none;
     color: inherit;
+  }
+
+  /* Smooth color transitions for all themed elements */
+  body, .content-wrapper, .theme-toggle {
+    transition: color 1s ease;
   }
 
   .content-wrapper {

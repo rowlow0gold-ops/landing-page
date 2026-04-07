@@ -137,6 +137,7 @@ const projects = [
   .subtitle {
     color: var(--text-sub);
     font-size: 0.95rem;
+    transition: color 1s ease;
   }
 
   /* Project Cards */
@@ -151,7 +152,7 @@ const projects = [
     background: var(--card-bg);
     border: 1px solid var(--card-border);
     border-radius: 16px;
-    transition: all 0.25s ease;
+    transition: all 0.25s ease, background 1s ease, border-color 1s ease;
     position: relative;
     overflow: hidden;
   }
@@ -215,12 +216,14 @@ const projects = [
     color: var(--text-muted);
     display: block;
     margin-bottom: 0.35rem;
+    transition: color 1s ease;
   }
 
   .card-content p {
     font-size: 0.85rem;
     color: var(--text-sub);
     line-height: 1.4;
+    transition: color 1s ease;
   }
 
   .badge {
@@ -275,6 +278,7 @@ const projects = [
     background: var(--tag-bg);
     color: var(--tag-text);
     border: 1px solid var(--tag-border);
+    transition: background 1s ease, color 1s ease, border-color 1s ease;
   }
 
   /* Footer */
