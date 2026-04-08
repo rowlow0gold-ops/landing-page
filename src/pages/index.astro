@@ -58,12 +58,12 @@ const projects = [
     <header class="hero">
       <div class="logo">M</div>
       <h1>minhojan<span class="accent">.world</span></h1>
-      <p class="subtitle">프로젝트 모음</p>
+      <p class="subtitle" data-i18n="subtitle">웹 프로젝트 모음</p>
     </header>
 
     <!-- Project Cards -->
     <div class="projects">
-      {projects.map((project) => (
+      {projects.map((project, i) => (
         <div class:list={["card-wrapper", { disabled: project.status === "coming" }]} style={`--accent: ${project.color}`}>
           <a
             href={project.url}
@@ -74,12 +74,12 @@ const projects = [
             <div class="card-top">
               <div class="card-icon">{project.icon}</div>
               <div class="card-content">
-                <h2>{project.name}</h2>
-                <span class="card-en">{project.nameEn}</span>
-                <p>{project.description}</p>
+                <h2 data-i18n={`project_${i}_name`}>{project.name}</h2>
+                <span class="card-en" data-i18n={`project_${i}_nameEn`}>{project.nameEn}</span>
+                <p data-i18n={`project_${i}_desc`}>{project.description}</p>
               </div>
               {project.status === "coming" ? (
-                <span class="badge coming">준비중</span>
+                <span class="badge coming" data-i18n="coming">준비중</span>
               ) : (
                 <span class="badge live">LIVE</span>
               )}
@@ -104,7 +104,7 @@ const projects = [
 
     <!-- Footer -->
     <footer>
-      <p>&copy; 2026 minhojan world. All rights reserved.</p>
+      <p data-i18n="footer">&copy; 2026 minhojan world. All rights reserved.</p>
     </footer>
   </div>
 </Layout>

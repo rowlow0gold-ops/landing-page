@@ -42,11 +42,20 @@ const { title, description } = Astro.props;
     <div class="stars-dense"></div>
     <div class="stars-twinkle"></div>
 
-    <!-- Theme toggle button -->
-    <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">
-      <span class="toggle-icon dark-icon">☀️</span>
-      <span class="toggle-icon light-icon">🌙</span>
-    </button>
+    <!-- Top controls -->
+    <div class="top-controls">
+      <div class="lang-switcher" id="langSwitcher">
+        <button class="lang-btn" data-lang="en">EN</button>
+        <button class="lang-btn" data-lang="zh">中</button>
+        <button class="lang-btn" data-lang="ko">한</button>
+        <button class="lang-btn" data-lang="ja">日</button>
+        <button class="lang-btn" data-lang="ru">RU</button>
+      </div>
+      <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">
+        <span class="toggle-icon dark-icon">☀️</span>
+        <span class="toggle-icon light-icon">🌙</span>
+      </button>
+    </div>
 
     <div class="content-wrapper">
       <slot />
@@ -57,6 +66,82 @@ const { title, description } = Astro.props;
         document.documentElement.classList.toggle('light');
         const isLight = document.documentElement.classList.contains('light');
         localStorage.setItem('theme', isLight ? 'light' : 'dark');
+      });
+
+      // i18n
+      var i18n = {
+        ko: {
+          subtitle: '웹 프로젝트 모음',
+          project_0_name: '용산구청 클론', project_0_nameEn: 'Yongsan District Clone', project_0_desc: '용산구청 홈페이지 클론 프로젝트',
+          project_1_name: '내 IP 확인', project_1_nameEn: 'My IP Checker', project_1_desc: '공인 IP 주소와 위치 정보를 빠르게 확인',
+          project_2_name: '포트폴리오', project_2_nameEn: 'Landing Page', project_2_desc: '프로젝트 포털 랜딩 페이지',
+          project_3_name: '계산기 모음', project_3_nameEn: 'Calculator Hub', project_3_desc: '나이, 환율, BMI 등 다양한 계산기 모음',
+          coming: '준비중', footer: '\u00A9 2026 minhojan world. All rights reserved.',
+        },
+        en: {
+          subtitle: 'Web Project Collection',
+          project_0_name: 'Yongsan District Clone', project_0_nameEn: 'Yongsan District Clone', project_0_desc: 'Clone of Yongsan district government website',
+          project_1_name: 'My IP Checker', project_1_nameEn: 'My IP Checker', project_1_desc: 'Quickly check your public IP and location',
+          project_2_name: 'Portfolio', project_2_nameEn: 'Landing Page', project_2_desc: 'Project portal landing page',
+          project_3_name: 'Calculator Hub', project_3_nameEn: 'Calculator Hub', project_3_desc: 'Age, currency, BMI and more calculators',
+          coming: 'Coming', footer: '\u00A9 2026 minhojan world. All rights reserved.',
+        },
+        ja: {
+          subtitle: 'ウェブプロジェクト集',
+          project_0_name: '龍山区庁クローン', project_0_nameEn: 'Yongsan District Clone', project_0_desc: '龍山区庁ホームページのクローンプロジェクト',
+          project_1_name: 'IP確認', project_1_nameEn: 'My IP Checker', project_1_desc: 'グローバルIPとロケーション情報を素早く確認',
+          project_2_name: 'ポートフォリオ', project_2_nameEn: 'Landing Page', project_2_desc: 'プロジェクトポータルランディングページ',
+          project_3_name: '計算機コレクション', project_3_nameEn: 'Calculator Hub', project_3_desc: '年齢、為替、BMIなど様々な計算機',
+          coming: '準備中', footer: '\u00A9 2026 minhojan world. All rights reserved.',
+        },
+        zh: {
+          subtitle: '网页项目合集',
+          project_0_name: '龙山区厅克隆', project_0_nameEn: 'Yongsan District Clone', project_0_desc: '龙山区政府网站克隆项目',
+          project_1_name: '查看我的IP', project_1_nameEn: 'My IP Checker', project_1_desc: '快速查看公网IP地址和位置信息',
+          project_2_name: '作品集', project_2_nameEn: 'Landing Page', project_2_desc: '项目门户着陆页',
+          project_3_name: '计算器合集', project_3_nameEn: 'Calculator Hub', project_3_desc: '年龄、汇率、BMI等多种计算器',
+          coming: '准备中', footer: '\u00A9 2026 minhojan world. All rights reserved.',
+        },
+        ru: {
+          subtitle: 'Коллекция веб-проектов',
+          project_0_name: 'Клон сайта Ёнсан', project_0_nameEn: 'Yongsan District Clone', project_0_desc: 'Клон сайта администрации района Ёнсан',
+          project_1_name: 'Мой IP', project_1_nameEn: 'My IP Checker', project_1_desc: 'Быстрая проверка публичного IP и местоположения',
+          project_2_name: 'Портфолио', project_2_nameEn: 'Landing Page', project_2_desc: 'Портал проектов',
+          project_3_name: 'Калькуляторы', project_3_nameEn: 'Calculator Hub', project_3_desc: 'Возраст, валюта, ИМТ и другие калькуляторы',
+          coming: 'Скоро', footer: '\u00A9 2026 minhojan world. All rights reserved.',
+        },
+      };
+
+      function detectLang() {
+        var saved = localStorage.getItem('lang');
+        if (saved && i18n[saved]) return saved;
+        var nav = (navigator.language || '').toLowerCase();
+        if (nav.startsWith('ko')) return 'ko';
+        if (nav.startsWith('ja')) return 'ja';
+        if (nav.startsWith('zh')) return 'zh';
+        if (nav.startsWith('ru')) return 'ru';
+        return 'en';
+      }
+
+      function setLang(lang) {
+        localStorage.setItem('lang', lang);
+        var texts = i18n[lang] || i18n['ko'];
+        document.querySelectorAll('[data-i18n]').forEach(function(el) {
+          var key = el.getAttribute('data-i18n');
+          if (texts[key]) el.textContent = texts[key];
+        });
+        document.querySelectorAll('.lang-btn').forEach(function(btn) {
+          btn.classList.toggle('active', btn.getAttribute('data-lang') === lang);
+        });
+      }
+
+      // Init language
+      setLang(detectLang());
+
+      // Lang switcher clicks
+      document.getElementById('langSwitcher').addEventListener('click', function(e) {
+        var btn = e.target.closest('.lang-btn');
+        if (btn) setLang(btn.getAttribute('data-lang'));
       });
 
       // Log visitor to Supabase
@@ -306,12 +391,51 @@ const { title, description } = Astro.props;
       radial-gradient(ellipse 350px 70px at 40% 70%, rgba(255,255,255,0.3), transparent);
   }
 
-  /* Theme toggle button */
-  .theme-toggle {
+  /* Top controls (lang switcher + theme toggle) */
+  .top-controls {
     position: fixed;
     top: 1.25rem;
     right: 1.25rem;
     z-index: 100;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  .lang-switcher {
+    display: flex;
+    gap: 0.2rem;
+    background: var(--card-bg);
+    border: 1px solid var(--card-border);
+    border-radius: 12px;
+    padding: 0.25rem;
+    backdrop-filter: blur(12px);
+    transition: background 1s ease, border-color 1s ease;
+  }
+
+  .lang-btn {
+    padding: 0.3rem 0.5rem;
+    font-size: 0.7rem;
+    font-weight: 600;
+    border: none;
+    border-radius: 8px;
+    background: transparent;
+    color: var(--text-muted);
+    cursor: pointer;
+    transition: all 0.2s ease;
+  }
+
+  .lang-btn:hover {
+    color: var(--text);
+  }
+
+  .lang-btn.active {
+    background: var(--card-hover-bg);
+    color: var(--text);
+  }
+
+  /* Theme toggle button */
+  .theme-toggle {
     width: 44px;
     height: 44px;
     border: 1px solid var(--card-border);
