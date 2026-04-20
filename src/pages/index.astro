@@ -14,17 +14,6 @@ const projects = [
     stack: ["Spring Boot 4", "Vue 3", "Vuetify", "PostgreSQL", "Redis", "JWT", "OAuth2", "Docker", "Nginx", "Prometheus", "Grafana", "GitHub Actions", "AWS Lightsail", "Managed Database"],
   },
   {
-    name: "원가/관리회계",
-    nameEn: "Cost Management Accounting",
-    description: "프로젝트별 원가 집계, 공수 입력, 예산 차이분석 등 관리회계 대시보드",
-    url: "https://cost-management-accounting-frontend.vercel.app",
-    github: "https://github.com/rowlow0gold-ops/Cost-Management-Accounting-frontend",
-    icon: "💹",
-    color: "#1d4ed8",
-    status: "live",
-    stack: ["Next.js", "TypeScript", "Tailwind CSS", "Recharts", "Spring Boot", "PostgreSQL", "JWT", "Render", "Neon", "Vercel"],
-  },
-  {
     name: "내 IP 확인",
     nameEn: "My IP Checker",
     description: "공인 IP 주소와 위치 정보를 빠르게 확인",
@@ -68,14 +57,14 @@ const projects = [
     stack: ["Avalonia UI", "C#", ".NET 9", "LiveCharts", "SkiaSharp"],
   },
   {
-    name: "크립토 시뮬레이터",
-    nameEn: "Crypto Simulator",
-    description: "가짜 돈으로 실시간 암호화폐 거래 연습 — Google Play 출시 테스트 중",
+    name: "일당 계산기",
+    nameEn: "Day Pay Calculator",
+    description: "일급·시급·월급 간편 환산 계산기. Google Play 출시 테스트 중",
     url: "#",
-    icon: "📈",
-    color: "#00e676",
+    icon: "💰",
+    color: "#fbbf24",
     status: "coming",
-    stack: ["Flutter", "Dart", "Firebase", "Firestore", "Binance WebSocket"],
+    stack: ["Flutter", "Dart", "Firebase"],
   },
   {
     name: "벌레 시각",
@@ -88,14 +77,25 @@ const projects = [
     stack: ["React Native", "Kotlin", "OpenGL ES", "Camera2 API"],
   },
   {
-    name: "일당 계산기",
-    nameEn: "Day Pay Calculator",
-    description: "일급·시급·월급 간편 환산 계산기. Google Play 출시 테스트 중",
+    name: "크립토 시뮬레이터",
+    nameEn: "Crypto Simulator",
+    description: "가짜 돈으로 실시간 암호화폐 거래 연습 — Google Play 출시 테스트 중",
     url: "#",
-    icon: "💰",
-    color: "#fbbf24",
+    icon: "📈",
+    color: "#00e676",
     status: "coming",
-    stack: ["Flutter", "Dart", "Firebase"],
+    stack: ["Flutter", "Dart", "Firebase", "Firestore", "Binance WebSocket"],
+  },
+  {
+    name: "원가/관리회계",
+    nameEn: "Cost Management Accounting",
+    description: "프로젝트별 원가 집계, 공수 입력, 예산 차이분석 등 관리회계 대시보드",
+    url: "https://cost-management-accounting-frontend.vercel.app",
+    github: "https://github.com/rowlow0gold-ops/Cost-Management-Accounting-frontend",
+    icon: "💹",
+    color: "#1d4ed8",
+    status: "live",
+    stack: ["Next.js", "TypeScript", "Tailwind CSS", "Recharts", "Spring Boot", "PostgreSQL", "JWT", "Render", "Neon", "Vercel"],
   },
 ];
 ---
@@ -109,7 +109,7 @@ const projects = [
     <header class="hero">
       <div class="logo">M</div>
       <h1>minhojan<span class="accent">.world</span></h1>
-      <p class="subtitle" data-i18n="subtitle">웹 프로젝트 모음</p>
+      <p class="subtitle" data-i18n="subtitle">프로젝트 모음</p>
     </header>
 
     <!-- Project Cards -->
