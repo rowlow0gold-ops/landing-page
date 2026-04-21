@@ -96,7 +96,7 @@ const projects = [
     description: "프로젝트별 원가 집계, 공수 입력, 예산 차이분석 등 관리회계 대시보드",
     url: "https://cost-management-accounting-frontend.vercel.app",
     github: "https://github.com/rowlow0gold-ops/Cost-Management-Accounting-frontend",
-    icon: "💹",
+    icon: "₩",
     color: "#1d4ed8",
     status: "live",
     stack: ["Next.js", "TypeScript", "Tailwind CSS", "Recharts", "Spring Boot", "PostgreSQL", "JWT", "Render", "Neon", "Vercel"],
@@ -127,7 +127,7 @@ const projects = [
             rel="noopener noreferrer"
           >
             <div class="card-top">
-              <div class="card-icon">{project.icon}</div>
+              <div class="card-icon" data-i18n={`project_${i}_icon`}>{project.icon}</div>
               <div class="card-content">
                 <h2 data-i18n={`project_${i}_name`}>{project.name}</h2>
                 <span class="card-en" data-i18n={`project_${i}_nameEn`}>{project.nameEn}</span>
