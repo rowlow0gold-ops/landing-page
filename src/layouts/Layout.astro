@@ -22,9 +22,22 @@ const { title, description } = Astro.props;
     <meta property="og:type" content="website" />
     <meta property="og:url" content="https://minhojan-world.site" />
     <meta property="og:locale" content="ko_KR" />
+    <meta property="og:image" content="https://minhojan-world.site/og-image.png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="minhojan.world — Project Collection" />
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content="https://minhojan-world.site/og-image.png" />
 
     <!-- Favicon -->
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+
+    <!-- Google AdSense -->
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9779896074298699" crossorigin="anonymous"></script>
 
     <title>{title}</title>
 
@@ -150,6 +163,7 @@ const { title, description } = Astro.props;
 
       function setLang(lang) {
         localStorage.setItem('lang', lang);
+        document.documentElement.lang = lang;
         var texts = i18n[lang] || i18n['ko'];
         document.querySelectorAll('[data-i18n]').forEach(function(el) {
           var key = el.getAttribute('data-i18n');
